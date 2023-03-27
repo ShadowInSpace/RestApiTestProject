@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Заголовок сторінки</title>
+</head>
+<body>
+<h1 th:text="${pageTitle}">Всі нотатки</h1>
+<ul>
+    <li th:each="notes : ${notes}">
+        <span th:text="${item.title}"></span>
+        <span th:text="${item.content}"></span>
+        <button th:data-id="${item.id}" class="btn-edit">Редагувати</button>
+        <button th:data-id="${item.id}" class="btn-delete">Видалити</button>
+    </li>
+</ul>
+</body>
+</html>
