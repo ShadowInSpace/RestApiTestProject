@@ -19,8 +19,14 @@ public class NoteController {
 
     @GetMapping("/list")
     public ModelAndView getNotes(NoteService noteService){
-        ModelAndView result = new ModelAndView("notes/list");
+        ModelAndView result = new ModelAndView("notes/listTemplate");
         List<Note> notes = noteService.listAll();
+        //for testing
+        Note note = new Note();
+        note.setTitle("Test Note");
+        note.setContext("Some Test Context");
+        notes.add(note);
+        //end of test code
 
         result.addObject("notes", notes);
 

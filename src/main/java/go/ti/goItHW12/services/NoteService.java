@@ -2,15 +2,26 @@ package go.ti.goItHW12.services;
 
 import go.ti.goItHW12.entities.Note;
 import lombok.Data;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Data
 @Service
+@RequiredArgsConstructor
 public class NoteService {
-    private final List<Note> storage;
+    @NonNull
+    private final ArrayList<Note> storage;
+
+    public NoteService(){
+        this.storage = new ArrayList<>();
+    }
+
 
     public List<Note> listAll() {
         return storage;
