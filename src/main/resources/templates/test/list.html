@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="ddd">
-<head>
-    <title>Заголовок сторінки</title>
+
+<head >
+    <meta charset="UTF-8">
+    <title>My List</title>
 </head>
 <body>
-<h1 th:text="${pageTitle}">Всі нотатки</h1>
-<ul>
-    <li th:each="notes : ${notes}">
-        <span th:text="${item.title}"></span>
-        <span th:text="${item.content}"></span>
-        <button th:data-id="${item.id}" class="btn-edit">Редагувати</button>
-        <button th:data-id="${item.id}" class="btn-delete">Видалити</button>
-    </li>
-</ul>
+<h1>My List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Property 1</th>
+        <th>Property 2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Note : ${notes}">
+        <td th:text="${Note.getTitle}"></td>
+        <td th:text="${Note.GetContext}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
