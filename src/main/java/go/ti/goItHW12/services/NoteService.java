@@ -3,8 +3,9 @@ package go.ti.goItHW12.services;
 import go.ti.goItHW12.entities.Note;
 import lombok.Data;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.NonNull;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class NoteService {
     void update(Note note) {
         Note origin = getById(note.getId());
         origin.setTitle(note.getTitle());
-        origin.setContext(note.getContext());
+        origin.setContent(note.getContent());
         storage.set(note.getId(), origin);
     }
 

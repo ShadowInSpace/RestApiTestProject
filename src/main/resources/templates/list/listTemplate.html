@@ -9,14 +9,17 @@
 <table>
     <thead>
     <tr>
-        <th>Property 1</th>
-        <th>Property 2</th>
+        <th>Title</th>
+        <th>Content</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="Note : ${notes}">
         <td th:text="${Note.getTitle}"></td>
-        <td th:text="${Note.GetContext}"></td>
+        <td th:text="${Note.getContent}"></td>
+<!--        <td> <button class="button button1" URL=th:text="'http://localhost:8080/note/'+${Note.getId}">Редагувати</button> </td>-->
+        <td> <button class="button button1" URL="http://localhost:8080/note/">Редагувати</button> </td>
+        <td> <button class="button button1" URL="">Видалити</button> </td>
     </tr>
     </tbody>
 </table>
