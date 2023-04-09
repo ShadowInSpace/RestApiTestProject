@@ -2,14 +2,10 @@ package go.ti.goItHW12.services;
 
 import go.ti.goItHW12.entities.Note;
 import lombok.Data;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 
 @Data
@@ -17,55 +13,51 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class NoteService {
     @NonNull
-    private final ArrayList<Note> storage;
+    private final HashMap<Long,Note> storage;
 
     public NoteService(){
-        this.storage = new ArrayList<>();
+        this.storage = new HashMap<>();
     }
 
 
-    public List<Note> listAll() {
+    public HashMap<Long,Note> listAll() {
         return storage;
     }
 
     public Note add(Note note) {
-        int id = getIndex();
+        long id = getIndex();
         note.setId(id);
-        storage.add(id, note);
+        storage.put(id,note);
         return note;
     }
 
-    private int getIndex() {
+    private Long getIndex() {
         Random randomizer = new Random();
         while (true) {
-            int i = randomizer.nextInt();
-            try {
-                Note note = storage.get(i);
-            } catch (IndexOutOfBoundsException e) {
-                return i;
-            }
+            Long i = randomizer.nextLong();
+            if(!storage.containsKey(i)) return i;
 
         }
     }
 
-    void deleteById(long id) {
+    public void deleteById(long id) {
         try {
-            storage.remove((int) id);
+            storage.remove( id);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("No such note exists");
         }
     }
 
-    void update(Note note) {
+    public void update(Note note) {
         Note origin = getById(note.getId());
         origin.setTitle(note.getTitle());
         origin.setContent(note.getContent());
-        storage.set(note.getId(), origin);
+        storage.put(note.getId(), origin);
     }
 
-    Note getById(long id) {
+    public Note getById(long id) {
         try {
-            return storage.get((int) id);
+            return storage.get(id);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("No such note exists");
         }

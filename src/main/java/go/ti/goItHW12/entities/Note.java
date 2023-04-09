@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Note {
 
-    int id;
+    long id;
     String title;
     String content;
 }
