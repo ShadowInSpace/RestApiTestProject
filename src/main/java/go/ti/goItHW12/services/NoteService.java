@@ -1,6 +1,7 @@
 package go.ti.goItHW12.services;
 
 import go.ti.goItHW12.entities.Note;
+import go.ti.goItHW12.repositories.NoteRepository;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,7 @@ import java.util.Random;
 public class NoteService {
     @NonNull
     private final HashMap<Long,Note> storage;
-
-    public NoteService(){
-        this.storage = new HashMap<>();
-    }
-
+    private final NoteRepository repository;
 
     public HashMap<Long,Note> listAll() {
         return storage;
