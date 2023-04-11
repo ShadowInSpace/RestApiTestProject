@@ -6,8 +6,11 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
+import java.util.Optional;
+
 
 @Data
 @Service
@@ -17,46 +20,34 @@ public class NoteService {
     private final HashMap<Long,Note> storage;
     private final NoteRepository repository;
 
-    public HashMap<Long,Note> listAll() {
-        return storage;
+    public ArrayList<Note> listAll() {
+        return (ArrayList<Note>) repository.findAll();
     }
 
     public Note add(Note note) {
-        long id = getIndex();
-        note.setId(id);
-        storage.put(id,note);
-        return note;
-    }
 
-    private Long getIndex() {
-        Random randomizer = new Random();
-        while (true) {
-            Long i = randomizer.nextLong();
-            if(!storage.containsKey(i)) return i;
-
-        }
+        return repository.save(note);
     }
 
     public void deleteById(long id) {
         try {
-            storage.remove( id);
+            repository.deleteById(id);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("No such note exists");
         }
     }
 
     public void update(Note note) {
-        Note origin = getById(note.getId());
-        origin.setTitle(note.getTitle());
-        origin.setContent(note.getContent());
-        storage.put(note.getId(), origin);
+        Optional<Note> origin = repository.findById(note.getId());
+        if(origin.isEmpty())throw new IllegalArgumentException("No such note exists");
+        origin.get().setTitle(note.getTitle());
+        origin.get().setContent(note.getContent());
+        repository.save(origin.get());
     }
 
     public Note getById(long id) {
-        try {
-            return storage.get(id);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("No such note exists");
-        }
+        Optional<Note> note = repository.findById(id);
+        if(note.isEmpty())throw new IllegalArgumentException("No such note exists");
+        return note.get();
     }
 }

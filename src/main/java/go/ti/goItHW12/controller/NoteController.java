@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -20,7 +21,7 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView getNotes(){
         ModelAndView result = new ModelAndView("notes/listTemplate");
-        HashMap<Long,Note> notes = noteService.listAll();
+        ArrayList<Note> notes = (ArrayList<Note>) noteService.listAll();
         result.addObject("notes", notes);
 
         return result;
