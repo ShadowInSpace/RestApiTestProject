@@ -4,6 +4,7 @@ import go.ti.goItHW12.entities.Note;
 import go.ti.goItHW12.services.NoteService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class NoteController {
 
 
     @GetMapping("/list")
+    
     public ModelAndView getNotes(){
         ModelAndView result = new ModelAndView("notes/listTemplate");
         ArrayList<Note> notes = (ArrayList<Note>) noteService.listAll();
